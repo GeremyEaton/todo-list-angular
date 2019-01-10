@@ -1,0 +1,25 @@
+@import '~src/_variables.scss';
+
+:host {
+  mat-list-option {
+    border-bottom: 1px solid $primary;
+    position: relative;
+
+    &::after{
+        content: '';
+        position: absolute;
+        height: 1px;
+        width: calc(100% - 50px);
+        left: 5px;
+        top: 50%;
+        background: transparent;
+
+    }
+
+    &.completed::after {
+      background: $accent;
+      transition: 800ms cubic-bezier(0.075, 0.82, 0.165, 1) 100ms background;
+
+    }
+  }
+}
