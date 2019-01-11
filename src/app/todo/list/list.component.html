@@ -1,0 +1,11 @@
+<mat-selection-list >
+  <mat-list-option #item
+  *ngFor="let task of taskList"
+  [value]="task.id"
+  [selected]="task.completed"
+  (click)="toggleComplete(item)"
+  [ngClass]="{'completed': task.completed}"
+  >
+  {{ task.title}}
+  </mat-list-option>
+</mat-selection-list>
