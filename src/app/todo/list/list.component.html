@@ -1,6 +1,20 @@
+<h2>A faire</h2>
 <mat-selection-list >
   <mat-list-option #item
-  *ngFor="let task of taskList"
+  *ngFor="let task of taskListUncompleted"
+  [value]="task.id"
+  [selected]="task.completed"
+  (click)="toggleComplete(item)"
+  [ngClass]="{'completed': task.completed}"
+  >
+  {{ task.title}}
+  </mat-list-option>
+</mat-selection-list>
+
+<h2>Tâche faites</h2>
+<mat-selection-list >
+  <mat-list-option #item
+  *ngFor="let task of taskListCompleted"
   [value]="task.id"
   [selected]="task.completed"
   (click)="toggleComplete(item)"
