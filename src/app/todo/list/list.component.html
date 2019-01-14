@@ -1,25 +1,38 @@
-<h2>A faire</h2>
-<mat-selection-list >
-  <mat-list-option #item
-  *ngFor="let task of taskListUncompleted"
-  [value]="task.id"
-  [selected]="task.completed"
-  (click)="toggleComplete(item)"
-  [ngClass]="{'completed': task.completed}"
+<h1>Ma Todo List</h1>
+<h2 *ngIf="listUncompleted.length > 0">A faire</h2>
+<mat-selection-list>
+  <mat-list-option
+    #item
+    *ngFor="let task of listUncompleted"
+    [value]="task.id"
+    [selected]="task.completed"
+    (click)="toggleComplete(item)"
+    [ngClass]="{ completed: task.completed }"
   >
-  {{ task.title}}
+    <div class="todo_list--task_container">
+      <a
+        mat-mini-fab
+        color="warn"
+        (click)="$event.stopPropagation()"
+        [routerLink]="['/list', task.id]"
+      >
+        <mat-icon>edit</mat-icon>
+      </a>
+      <span class="todo_list--task_title"> {{ task.title }} </span>
+    </div>
   </mat-list-option>
 </mat-selection-list>
 
-<h2>Tâche faites</h2>
-<mat-selection-list >
-  <mat-list-option #item
-  *ngFor="let task of taskListCompleted"
-  [value]="task.id"
-  [selected]="task.completed"
-  (click)="toggleComplete(item)"
-  [ngClass]="{'completed': task.completed}"
+<h2 *ngIf="listCompleted.length > 0">Tâche faites</h2>
+<mat-selection-list>
+  <mat-list-option
+    #item
+    *ngFor="let task of listCompleted"
+    [value]="task.id"
+    [selected]="task.completed"
+    (click)="toggleComplete(item)"
+    [ngClass]="{ completed: task.completed }"
   >
-  {{ task.title}}
+    {{ task.title }}
   </mat-list-option>
 </mat-selection-list>

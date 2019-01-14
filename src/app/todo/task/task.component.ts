@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Task } from '../interface/task';
+import { ActivatedRoute } from '@angular/router';
+
+import { Task } from '../class/task';
+import { TodoDataService } from '../service/todo-data.service';
 
 @Component({
   selector: 'app-todo-task',
@@ -7,12 +10,21 @@ import { Task } from '../interface/task';
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent implements OnInit {
+  task: Task;
 
-  @Input() task: Task;
-
-  constructor() { }
+  taskId: number;
+  private sub: any;
+  constructor(
+    private route: ActivatedRoute,
+    private todoDataService: TodoDataService
+  ) {}
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.taskId = +params['taskId'];
+    });
+    if (this.taskId) {
+      this.task = this.todoDataService.getTaskById(this.taskId);
+    }
   }
-
 }

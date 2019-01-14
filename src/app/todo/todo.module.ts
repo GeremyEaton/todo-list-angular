@@ -8,9 +8,13 @@ import { TaskComponent } from './task/task.component';
 
 import { MaterialModule } from './material/material.module';
 
+import { TodoDataService } from './service/todo-data.service';
+
+
 
 @NgModule({
   declarations: [ListComponent, TaskComponent],
-  imports: [CommonModule, TodoRoutingModule, MaterialModule]
+  imports: [CommonModule, TodoRoutingModule, MaterialModule],
+  providers: [TodoDataService]
 })
 export class TodoModule {}
