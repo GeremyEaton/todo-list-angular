@@ -1,6 +1,4 @@
-<article>
-  <h1>{{task.title}}</h1>
-  <p *ngIf="task.description">
-    {{task.description}}
-  </p>
+<article *ngIf="task">
+  <h1>{{ task.title }}</h1>
+  <p *ngIf="task.description">{{ task.description }}</p>
 </article>

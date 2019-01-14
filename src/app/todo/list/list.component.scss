@@ -5,21 +5,28 @@
     border-bottom: 1px solid $primary;
     position: relative;
 
-    &::after{
-        content: '';
-        position: absolute;
-        height: 1px;
-        width: calc(100% - 50px);
-        left: 5px;
-        top: 50%;
-        background: transparent;
-
+    &::after {
+      content: '';
+      position: absolute;
+      height: 1px;
+      width: calc(100% - 50px);
+      left: 5px;
+      top: 50%;
+      background: transparent;
     }
 
     &.completed::after {
       background: $accent;
       transition: 800ms cubic-bezier(0.075, 0.82, 0.165, 1) 100ms background;
+    }
 
+    .todo_list--task_container {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+
+    .mat-mini-fab {
+      z-index: 5;
     }
   }
 }
