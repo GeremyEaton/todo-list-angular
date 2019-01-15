@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { TodoRoutingModule } from './todo.routing';
 
@@ -10,11 +11,14 @@ import { MaterialModule } from './material/material.module';
 
 import { TodoDataService } from './service/todo-data.service';
 
-
-
 @NgModule({
   declarations: [ListComponent, TaskComponent],
-  imports: [CommonModule, TodoRoutingModule, MaterialModule],
+  imports: [
+    CommonModule,
+    TodoRoutingModule,
+    MaterialModule,
+    ReactiveFormsModule
+  ],
   providers: [TodoDataService]
 })
 export class TodoModule {}

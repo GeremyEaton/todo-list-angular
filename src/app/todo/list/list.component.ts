@@ -9,7 +9,6 @@ import { TodoDataService } from '../service/todo-data.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-
   list: Task[];
   listUncompleted: Task[] = [];
   listCompleted: Task[] = [];
@@ -28,7 +27,10 @@ export class ListComponent implements OnInit {
   updateTaskListUncompleted() {
     this.listUncompleted = this.todoDataService
       .getTasks()
-      .filter(task => !task.completed);
+      .filter(task => !task.completed)
+      .sort((a, b) => {
+        return b.id - a.id;
+      });
   }
 
   updateTaskListCompleted() {
@@ -39,8 +41,21 @@ export class ListComponent implements OnInit {
 
   toggleComplete(currentTask: any) {
     this.todoDataService.updateTaskById(currentTask.value, {
-      completed : currentTask.selected
+      completed: currentTask.selected
     });
+    this.updateList();
+  }
+
+  addTask(_inputElement) {
+    if (!_inputElement.value) {
+      return null;
+    }
+    
+    let task = this.todoDataService.initNewTask();
+    task.title = _inputElement.value;
+    _inputElement.value = '';
+
+    this.todoDataService.addNewTask(task);
     this.updateList();
   }
 }

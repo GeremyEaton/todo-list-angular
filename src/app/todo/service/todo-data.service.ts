@@ -7,6 +7,11 @@ export class TodoDataService {
 
   tasks: Task[] = [
     new Task({
+      id: 0,
+      completed: false,
+      title: 'Ma super première tâche'
+    }),
+    new Task({
       id: 1,
       completed: true,
       title: 'Ann Hutchinson',
@@ -54,6 +59,13 @@ export class TodoDataService {
     this.lastId = this.tasks.length - 1;
   }
 
+  initNewTask(): Task {
+    return new Task({
+      id : this.lastId++,
+      completed: false
+    });
+  }
+
   addNewTask(_task: Task): TodoDataService {
     if (!_task.id) {
       _task.id = this.lastId++;
@@ -81,7 +93,13 @@ export class TodoDataService {
   }
 
   getTaskById(_taskId: number): Task {
-    return this.tasks.filter(task => task.id === _taskId).pop();
+    let task = this.tasks.filter(task => task.id === _taskId).pop();
+
+    if (!task) {
+      return null;
+    }
+
+    return task;
   }
 
   toggleTaskComplete(_taskId: number) {
