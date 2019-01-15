@@ -1,4 +1,35 @@
 <article *ngIf="task">
-  <h1>{{ task.title }}</h1>
-  <p *ngIf="task.description">{{ task.description }}</p>
+  <h1>Edition de votre Tâche</h1>
+
+  <form [formGroup]="taskFormService.form" [style.fontSize.px]="18">
+    <mat-form-field [color]="accent">
+      <mat-label>Titre</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        [placeholder]="stringForm.title.placeholder"
+        required
+      />
+      <mat-error *ngIf="taskFormService.form.controls['title'].invalid"
+        >Champs obligatoire</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field [color]="warn">
+      <mat-label>Description</mat-label>
+      <textarea
+        rows="10"
+        matInput
+        formControlName="description"
+        [placeholder]="stringForm.description.placeholder"
+      ></textarea>
+    </mat-form-field>
+
+    <button 
+      mat-raised-button 
+      color="warn" 
+      type="submit"
+      (click)="taskFormService.saveTask()"
+      [disabled]="!taskFormService.form.valid">Sauvegarder</button>
+  </form>
 </article>
