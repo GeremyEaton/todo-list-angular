@@ -24,6 +24,24 @@ export function todosReducer(
         ]
       };
 
+    case TodoListModule.ActionTypes.CREATE_TODO:
+      return {
+        ...state,
+        data: [...state.data, action.payload]
+      };
+
+    case TodoListModule.ActionTypes.DELETE_TODO:
+      return {
+        ...state,
+        data: state.data.filter( todo => todo.id !== action.payload)
+      };
+
+    case TodoListModule.ActionTypes.UPDATE_TODO:
+      return {
+        ...state,
+        data: [...state.data, action.payload]
+      };
+
     default:
       return state;
   }

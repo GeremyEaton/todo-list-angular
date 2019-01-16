@@ -11,8 +11,6 @@ import { MaterialModule } from './material/material.module';
 
 import { TodoDataService } from './service/todo-data.service';
 
-import { StoreModule } from '@ngrx/store';
-
 @NgModule({
   declarations: [ListComponent, TaskComponent],
   imports: [

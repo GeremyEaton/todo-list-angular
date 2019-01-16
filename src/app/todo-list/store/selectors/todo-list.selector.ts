@@ -9,3 +9,8 @@ export const selectTodos$ = createSelector(
   selectTodoListState$,
   todos => todos.data
 );
+
+export const selectTodosOrderByIdDescending$ = createSelector(
+  selectTodoListState$,
+  todos => todos.data.sort((a, b) => b.id - a.id)
+);
