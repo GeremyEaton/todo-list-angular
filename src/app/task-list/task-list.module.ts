@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { TodoRoutingModule } from './todo.routing';
+import { TaskListRoutingModule } from './task-list.routing';
 
 import { ListComponent } from './list/list.component';
 import { TaskComponent } from './task/task.component';
@@ -11,14 +11,18 @@ import { MaterialModule } from './material/material.module';
 
 import { TodoDataService } from './service/todo-data.service';
 
+import { StoreModule } from '@ngrx/store';
+
 @NgModule({
   declarations: [ListComponent, TaskComponent],
   imports: [
     CommonModule,
-    TodoRoutingModule,
+    TaskListRoutingModule,
     MaterialModule,
     ReactiveFormsModule
   ],
-  providers: [TodoDataService]
+  providers: [
+    TodoDataService
+  ]
 })
-export class TodoModule {}
+export class TaskListModule {}

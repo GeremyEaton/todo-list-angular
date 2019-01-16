@@ -1,0 +1,11 @@
+<h2>La todolist avec ngRx</h2>
+<mat-selection-list>
+    <mat-list-option
+      #item
+      *ngFor="let todo of todos$ | async"
+      [selected]="todo.completed"
+      [ngClass]="{ completed: todo.completed }"
+    >
+      {{ todo.title }}
+    </mat-list-option>
+  </mat-selection-list>

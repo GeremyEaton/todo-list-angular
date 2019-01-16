@@ -3,19 +3,19 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListComponent } from './list/list.component';
 import { TaskComponent } from './task/task.component';
 
-const todoListRoutes: Routes = [
+const taskListRoutes: Routes = [
     {
-        path: 'list',
+        path: 'task-list',
         component: ListComponent
     },
     {
-        path: 'list/:taskId',
+        path: 'task-list/:taskId',
         component: TaskComponent
     }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(todoListRoutes)],
+  imports: [RouterModule.forChild(taskListRoutes)],
   exports: [RouterModule]
 })
-export class TodoRoutingModule { }
+export class TaskListRoutingModule { }

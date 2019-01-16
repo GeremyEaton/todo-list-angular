@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Task } from '../class/task';
+import { Task } from '../models/task';
 import { TodoDataService } from '../service/todo-data.service';
 import { TaskFormService } from '../service/task-form.service';
 
 @Component({
-  selector: 'app-todo-task',
+  selector: 'app-task-list--task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
   providers: [TaskFormService]

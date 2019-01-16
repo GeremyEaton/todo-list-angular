@@ -3,10 +3,7 @@
 <h2>Une nouvelle tâche ?</h2>
 <mat-form-field>
   <mat-label>Titre</mat-label>
-  <input
-    matInput
-    (keyup.enter)="addTask($event.srcElement)"
-  />
+  <input matInput (keyup.enter)="addTask($event.srcElement)" />
 </mat-form-field>
 
 <h2 *ngIf="listUncompleted.length > 0">A faire</h2>

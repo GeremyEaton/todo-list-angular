@@ -8,16 +8,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-import { TodoModule } from './todo/todo.module';
+/** no-ngRx version */
+import { TaskListModule } from './task-list/task-list.module';
+
+/** ngRx version */
+import { TodoListModule } from './todo-list/todo-list.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PageNotFoundComponent
-  ],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
+    TodoListModule,
     BrowserModule,
-    TodoModule,
+    TaskListModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FlexLayoutModule
@@ -25,4 +27,4 @@ import { TodoModule } from './todo/todo.module';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
