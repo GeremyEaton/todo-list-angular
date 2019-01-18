@@ -1,0 +1,66 @@
+<h2>La todolist avec ngRx</h2>
+
+<form [formGroup]="todoForm" (ngSubmit)="createTodo(todoForm.value)">
+  <mat-form-field style="display: block">
+    <mat-label>Titre</mat-label>
+    <input
+      matInput
+      formControlName="title"
+      placeholder="Que voulez vous faire ?"
+      required
+    />
+  </mat-form-field>
+
+  <mat-checkbox formControlName="completed">Est-elle terminé ?</mat-checkbox>
+  <button
+    style="margin : 0 0 0 30px"
+    mat-raised-button
+    color="warn"
+    type="submit"
+  >
+    Sauvegarder
+  </button>
+</form>
+
+<hr style="margin: 30px 0; width: 100%;" />
+
+<mat-selection-list>
+  <mat-list-option
+    #item
+    *ngFor="let todo of (todos$ | async)"
+    [selected]="todo.completed"
+    [ngClass]="{completed : todo.completed}"
+    (click)="completedToggle(todo, item.selected)"
+  >
+    <div
+      class="todo_list--task_container"
+      matTooltip="{{ todo.title }}"
+      matTooltipPosition="above"
+    >
+      <button
+        color="primary"
+        style="z-index: 5;"
+        mat-icon-button
+        (click)="deleteTodo($event, todo)"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+      <button
+        color="primary"
+        style="z-index: 5;"
+        mat-icon-button
+        (click)="editTodo($event, todo)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <span
+        >{{ todo.id }}#
+        {{
+          todo.title.length > 50
+            ? (todo.title | slice: 0:47) + '...'
+            : todo.title
+        }}</span
+      >
+    </div>
+  </mat-list-option>
+</mat-selection-list>
