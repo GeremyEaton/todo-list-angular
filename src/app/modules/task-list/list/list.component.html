@@ -1,12 +1,5 @@
-<h1>Ma Todo List</h1>
-
-<h2>Une nouvelle tâche ?</h2>
-<mat-form-field>
-  <mat-label>Titre</mat-label>
-  <input
-    matInput
-    (keyup.enter)="addTask($event.srcElement)"
-  />
+<mat-form-field class="new-task-input--container">
+  <input autocomplete="off" placeholder="Une nouvelle tâche ?" matInput (keyup.enter)="addTask($event.srcElement)" />
 </mat-form-field>
 
 <h2 *ngIf="listUncompleted.length > 0">A faire</h2>
@@ -21,10 +14,10 @@
   >
     <div class="todo_list--task_container">
       <a
-        mat-mini-fab
-        color="warn"
+        mat-icon-button
+        color="accent"
         (click)="$event.stopPropagation()"
-        [routerLink]="['/list', task.id]"
+        [routerLink]="['/task-list/task/', task.id]"
       >
         <mat-icon>edit</mat-icon>
       </a>

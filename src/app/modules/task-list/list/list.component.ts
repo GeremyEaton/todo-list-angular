@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Task } from '../class/task';
+import { Task } from '@models/task';
 import { TodoDataService } from '../service/todo-data.service';
 
+
 @Component({
-  selector: 'app-todo-list',
+  selector: 'app-task-list--list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
@@ -28,6 +29,7 @@ export class ListComponent implements OnInit {
     this.listUncompleted = this.todoDataService
       .getTasks()
       .filter(task => !task.completed)
+      // sort by descending ID
       .sort((a, b) => {
         return b.id - a.id;
       });
@@ -50,7 +52,7 @@ export class ListComponent implements OnInit {
     if (!_inputElement.value) {
       return null;
     }
-    
+
     let task = this.todoDataService.initNewTask();
     task.title = _inputElement.value;
     _inputElement.value = '';

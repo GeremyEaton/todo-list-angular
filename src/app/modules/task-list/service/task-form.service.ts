@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Task } from '../class/task';
+import { Task } from '@models/task';
 
 import { TodoDataService } from '../service/todo-data.service';
 
 import { MatSnackBar } from '@angular/material';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TaskFormService {
   task: Task;
   form: FormGroup;
