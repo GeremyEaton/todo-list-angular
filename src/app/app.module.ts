@@ -11,20 +11,25 @@ import { PageNotFoundModule } from '@modules/page-not-found/page-not-found.modul
 
 /** no-ngRx version */
 import { TaskListModule } from '@modules/task-list/task-list.module';
-
-/** ngRx version */
- import { TodoListModule } from '@modules/todo-list/todo-list.module';
+import { MainNavComponent } from './core/main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MainNavComponent],
   imports: [
     PageNotFoundModule,
     TaskListModule,
-    TodoListModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

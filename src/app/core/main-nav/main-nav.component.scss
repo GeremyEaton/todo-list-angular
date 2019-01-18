@@ -1,0 +1,31 @@
+@import '~src/_variables.scss';
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+:host {
+  .main--container_content {
+    padding: 10px;
+  }
+  .main_nav--title {
+    display: inline-block;
+    width: 100%;
+    color: #ffffff;
+    text-align: center;
+  }
+}

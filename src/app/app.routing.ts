@@ -8,10 +8,6 @@ const routes: Routes = [
     redirectTo: '404'
   },
   {
-    path: 'todo-list',
-    loadChildren: './modules/todo-list/todo-list.module#TodoListModule'
-  },
-  {
     path: 'task-list',
     loadChildren: './modules/task-list/task-list.module#TaskListModule'
   },

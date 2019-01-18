@@ -1,0 +1,21 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+  >
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/task-list/list']">Liste de tâche</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" (click)="drawer.toggle()" style="cursor:pointer;">
+      <mat-icon aria-label="Side nav toggle icon" *ngIf="!drawer.opened">menu</mat-icon>
+      <mat-icon aria-label="Side nav toggle icon" *ngIf="drawer.opened">close</mat-icon>
+      <h1 class="main_nav--title">Todo List  #Angular7</h1>
+    </mat-toolbar>
+    <main class="main--container_content"><ng-content></ng-content></main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

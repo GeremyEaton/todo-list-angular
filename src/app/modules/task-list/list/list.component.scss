@@ -23,10 +23,14 @@
     .todo_list--task_container {
       flex-direction: row;
       justify-content: flex-start;
-    }
 
-    .mat-mini-fab {
-      z-index: 5;
+      a,button {
+        z-index: 5;
+      }
     }
   }
+}
+.new-task-input--container{
+  width: 100%;
+  display: block;
 }
