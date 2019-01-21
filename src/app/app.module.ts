@@ -13,7 +13,13 @@ import { PageNotFoundModule } from '@modules/page-not-found/page-not-found.modul
 import { TaskListModule } from '@modules/task-list/task-list.module';
 import { MainNavComponent } from './core/main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [AppComponent, MainNavComponent],
@@ -31,7 +37,6 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     MatIconModule,
     MatListModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

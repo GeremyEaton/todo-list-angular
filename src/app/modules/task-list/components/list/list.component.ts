@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, inject } from '@angular/core';
 
 import { Task } from '@models/task';
-import { TodoDataService } from '../service/todo-data.service';
+import { TodoDataService } from '../../service/todo-data.service';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { DialogRemoveTaskComponent } from '../dialog-remove-task/dialog-remove-task.component';
 
 @Component({
   selector: 'app-task-list--list',
@@ -13,7 +15,10 @@ export class ListComponent implements OnInit {
   listUncompleted: Task[] = [];
   listCompleted: Task[] = [];
 
-  constructor(private todoDataService: TodoDataService) {
+  constructor(
+    private todoDataService: TodoDataService,
+    public dialogRef: MatDialog
+  ) {
     this.updateList();
   }
 
@@ -60,9 +65,23 @@ export class ListComponent implements OnInit {
     this.updateList();
   }
 
-  removeTask($event: Event, _taskId: Task['id']) {
+  removeTask($event: Event, _task: Task) {
     $event.stopPropagation();
-    this.todoDataService.removeTask(_taskId);
-    this.updateList();
+    this.openDialog(_task);
+  }
+
+  openDialog(_task: Task) {
+    const dialogRef = this.dialogRef.open(DialogRemoveTaskComponent, {
+      data: _task
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return null;
+      }
+
+      this.todoDataService.removeTask(_task.id);
+      this.updateList();
+    });
   }
 }
