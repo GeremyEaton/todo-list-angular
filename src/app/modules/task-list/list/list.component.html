@@ -1,5 +1,10 @@
 <mat-form-field class="new-task-input--container">
-  <input autocomplete="off" placeholder="Une nouvelle tâche ?" matInput (keyup.enter)="addTask($event.srcElement)" />
+  <input
+    autocomplete="off"
+    placeholder="Une nouvelle tâche ?"
+    matInput
+    (keyup.enter)="addTask($event.srcElement)"
+  />
 </mat-form-field>
 
 <h2 *ngIf="listUncompleted.length > 0">A faire</h2>
@@ -13,6 +18,13 @@
     [ngClass]="{ completed: task.completed }"
   >
     <div class="todo_list--task_container">
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="removeTask($event, task.id)"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
       <a
         mat-icon-button
         color="accent"
@@ -36,6 +48,15 @@
     (click)="toggleComplete(item)"
     [ngClass]="{ completed: task.completed }"
   >
-    {{ task.title }}
+    <div class="todo_list--task_container">
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="removeTask($event, task.id)"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+      <span class="todo_list--task_title"> {{ task.title }} </span>
+    </div>
   </mat-list-option>
 </mat-selection-list>

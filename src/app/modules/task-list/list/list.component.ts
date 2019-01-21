@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '@models/task';
 import { TodoDataService } from '../service/todo-data.service';
 
-
 @Component({
   selector: 'app-task-list--list',
   templateUrl: './list.component.html',
@@ -41,9 +40,9 @@ export class ListComponent implements OnInit {
       .filter(task => task.completed);
   }
 
-  toggleComplete(currentTask: any) {
-    this.todoDataService.updateTaskById(currentTask.value, {
-      completed: currentTask.selected
+  toggleComplete(_currentTask: any) {
+    this.todoDataService.updateTaskById(_currentTask.value, {
+      completed: _currentTask.selected
     });
     this.updateList();
   }
@@ -58,6 +57,12 @@ export class ListComponent implements OnInit {
     _inputElement.value = '';
 
     this.todoDataService.addNewTask(task);
+    this.updateList();
+  }
+
+  removeTask($event: Event, _taskId: Task['id']) {
+    $event.stopPropagation();
+    this.todoDataService.removeTask(_taskId);
     this.updateList();
   }
 }
