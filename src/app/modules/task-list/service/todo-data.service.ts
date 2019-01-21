@@ -61,7 +61,7 @@ export class TodoDataService {
 
   initNewTask(): Task {
     return new Task({
-      id : this.lastId++,
+      id: this.lastId++,
       completed: false
     });
   }
@@ -76,7 +76,15 @@ export class TodoDataService {
     return this;
   }
 
-  updateTaskById(_id: number, _values: Object = {}): Task {
+  removeTask(_taskId: Task['id']): TodoDataService {
+    this.tasks = this.tasks.filter(task => {
+      return task.id !== _taskId;
+    });
+
+    return this;
+  }
+
+  updateTaskById(_id: Task['id'], _values: Object = {}): Task {
     let task = this.getTaskById(_id);
 
     if (!task) {
@@ -92,7 +100,7 @@ export class TodoDataService {
     return this.tasks;
   }
 
-  getTaskById(_taskId: number): Task {
+  getTaskById(_taskId: Task['id']): Task {
     let task = this.tasks.filter(task => task.id === _taskId).pop();
 
     if (!task) {
