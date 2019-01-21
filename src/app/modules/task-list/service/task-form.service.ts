@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Task } from '@models/task';
 
 import { TodoDataService } from '../service/todo-data.service';
 
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TaskFormService {
@@ -13,7 +14,8 @@ export class TaskFormService {
 
   constructor(
     private todoDataService: TodoDataService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   saveTask() {
@@ -26,10 +28,18 @@ export class TaskFormService {
     }
 
     this.todoDataService.updateTaskById(this.task.id, this.form.value);
-    this.snackBar.open('Votre tâche a bien été enregistré', '', {
-      duration: 2000,
-      verticalPosition: 'top',
-      horizontalPosition: 'center'
+    let snackBarRef = this.snackBar.open(
+      'Votre tâche a bien été enregistré',
+      'Retour à la liste',
+      {
+        duration: 2000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      }
+    );
+
+    snackBarRef.onAction().subscribe(() => {
+      this.router.navigate(['/task-list/list']);
     });
   }
 
