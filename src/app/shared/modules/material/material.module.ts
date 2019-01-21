@@ -14,7 +14,8 @@ import * as Material from '@angular/material';
     Material.MatInputModule,
     Material.MatSnackBarModule,
     Material.MatCheckboxModule,
-    Material.MatTooltipModule
+    Material.MatTooltipModule,
+    Material.MatDialogModule
   ],
   exports: [
     Material.MatListModule,
@@ -25,7 +26,8 @@ import * as Material from '@angular/material';
     Material.MatInputModule,
     Material.MatSnackBarModule,
     Material.MatCheckboxModule,
-    Material.MatTooltipModule
+    Material.MatTooltipModule,
+    Material.MatDialogModule
   ]
 })
 export class MaterialModule {}

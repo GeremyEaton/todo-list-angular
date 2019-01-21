@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Task } from '@models/task';
-import { TodoDataService } from '../service/todo-data.service';
-import { TaskFormService } from '../service/task-form.service';
+import { TodoDataService } from '../../service/todo-data.service';
+import { TaskFormService } from '../../service/task-form.service';
 
 @Component({
   selector: 'app-task-list--task',
