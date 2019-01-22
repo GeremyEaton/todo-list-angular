@@ -1,0 +1,12 @@
+:host ::ng-deep {
+  mat-form-field {
+    display: block;
+    width: 100%;
+  }
+
+  button {
+    display: block;
+    margin: 20px auto;
+    max-width: 300px;
+  }
+}

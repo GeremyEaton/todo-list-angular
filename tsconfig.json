@@ -3,16 +3,12 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@env/*": ["environments/environment.ts*"],
-      "@services/*": ["src/app/services/*"],
+      "@env/*": ["environments/environment.ts"],
+      "@core/*": ["src/app/core/*"],
       "@modules/*": ["src/app/modules/*"],
       "@shared/*": ["src/app/shared/*"],
       "@models/*": ["src/app/shared/models/*"],
       "@mocks/*": ["src/app/mocks/*"],
-      "@storeConfig": ["src/app/store/index.ts"],
-      "@actions/*": ["src/app/store/actions/*"],
-      "@reducers/*": ["src/app/store/reducers/*"],
-      "@selectors/*": ["src/app/store/selectors/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

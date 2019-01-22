@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Task } from '@models/task';
 import { TodoDataService } from '../../service/todo-data.service';
@@ -26,7 +26,8 @@ export class TaskComponent implements OnInit {
   private sub: any;
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     private todoDataService: TodoDataService,
     private taskFormService: TaskFormService
   ) {
@@ -38,12 +39,12 @@ export class TaskComponent implements OnInit {
   }
 
   initTask() {
-    this.sub = this.route.params.subscribe(params => {
+    this.sub = this.activatedRoute.params.subscribe(params => {
       this.taskId = +params['taskId'];
     });
 
     if (!this.taskId && this.taskId !== 0) {
-      return console.error(`pas de taskId`);
+      return this.router.navigate(['/task-list', '/list']);
     }
 
     let task = this.todoDataService.getTaskById(this.taskId);
