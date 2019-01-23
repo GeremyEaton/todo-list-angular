@@ -9,15 +9,14 @@ import { AppRoutingModule } from './app.routing';
 import { PageNotFoundModule } from '@modules/page-not-found/page-not-found.module';
 import { TaskListModule } from '@modules/task-list/task-list.module';
 import { CoreModule } from '@core/core.module';
-import 'hammerjs';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    BrowserModule,
     CoreModule,
     PageNotFoundModule,
     TaskListModule,
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule
   ],

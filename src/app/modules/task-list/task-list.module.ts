@@ -9,7 +9,6 @@ import { TaskComponent } from './components/task/task.component';
 
 import { MaterialModule } from '@shared/modules/material/material.module';
 
-import { TodoDataService } from './service/todo-data.service';
 import { DialogRemoveTaskComponent } from './components/dialog-remove-task/dialog-remove-task.component';
 
 @NgModule({
@@ -22,9 +21,6 @@ import { DialogRemoveTaskComponent } from './components/dialog-remove-task/dialo
   ],
   entryComponents: [
     DialogRemoveTaskComponent
-  ],
-  providers: [
-    TodoDataService
   ]
 })
 export class TaskListModule {}

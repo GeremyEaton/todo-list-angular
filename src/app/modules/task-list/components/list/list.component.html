@@ -6,13 +6,11 @@
     (keyup.enter)="addTask($event.srcElement)"
   />
 </mat-form-field>
-
-<h2 *ngIf="listUncompleted.length > 0">A faire</h2>
 <mat-selection-list>
   <mat-list-option
     #item
-    *ngFor="let task of listUncompleted"
-    [value]="task.id"
+    *ngFor="let task of list; let i = index"
+    [value]="i"
     [selected]="task.completed"
     (click)="toggleComplete(item)"
     [ngClass]="{ completed: task.completed }"
@@ -33,29 +31,6 @@
       >
         <mat-icon>edit</mat-icon>
       </a>
-      <span class="todo_list--task_title"> {{ task.title }} </span>
-    </div>
-  </mat-list-option>
-</mat-selection-list>
-
-<h2 *ngIf="listCompleted.length > 0">Tâche faites</h2>
-<mat-selection-list>
-  <mat-list-option
-    #item
-    *ngFor="let task of listCompleted"
-    [value]="task.id"
-    [selected]="task.completed"
-    (click)="toggleComplete(item)"
-    [ngClass]="{ completed: task.completed }"
-  >
-    <div class="todo_list--task_container">
-      <button
-        mat-icon-button
-        color="accent"
-        (click)="removeTask($event, task)"
-      >
-        <mat-icon>clear</mat-icon>
-      </button>
       <span class="todo_list--task_title"> {{ task.title }} </span>
     </div>
   </mat-list-option>

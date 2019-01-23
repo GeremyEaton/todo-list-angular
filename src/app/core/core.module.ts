@@ -7,10 +7,12 @@ import { AuthRoutingModule } from './auth/auth.routing';
 import { MaterialModule } from '@shared/modules/material/material.module';
 
 import { MainNavComponent } from './components/main-nav/main-nav.component';
+import { TasksService } from './services/tasks.service';
 
 @NgModule({
   declarations: [MainNavComponent],
   imports: [CommonModule, MaterialModule, AuthModule, AuthRoutingModule],
-  exports: [MainNavComponent]
+  exports: [MainNavComponent],
+  providers: [TasksService]
 })
 export class CoreModule {}

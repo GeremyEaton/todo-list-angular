@@ -1,8 +1,8 @@
 export class Task {
-  id: number;
+  id?: number|string;
   title?: string;
   description?: string;
-  completed: boolean;
+  completed: boolean = false;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

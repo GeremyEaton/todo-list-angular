@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Firebase } from '@core/firebase';
+import * as firebase from 'firebase';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,6 @@ import { Firebase } from '@core/firebase';
 })
 export class AppComponent {
   constructor() {
-    let initFirebase = new Firebase();
+    firebase.initializeApp(environment.firebase);
   }
 }

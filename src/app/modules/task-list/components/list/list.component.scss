@@ -23,14 +23,25 @@
     .todo_list--task_container {
       flex-direction: row;
       justify-content: flex-start;
-
-      a,button {
+      align-items: center;
+      a,
+      button {
         z-index: 5;
+        float: left;
       }
+    }
+    .todo_list--task_title {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 70%;
+      display: inline-block;
+      float: left;
+      line-height: 40px;
     }
   }
 }
-.new-task-input--container{
+.new-task-input--container {
   width: 100%;
   display: block;
 }

@@ -1,55 +1,51 @@
-import { Component, OnInit, Inject, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Task } from '@models/task';
-import { TodoDataService } from '../../service/todo-data.service';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { DialogRemoveTaskComponent } from '../dialog-remove-task/dialog-remove-task.component';
+import { TasksService } from '@core/services/tasks.service';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-task-list--list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  providers: [TasksService]
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   list: Task[];
-  listUncompleted: Task[] = [];
-  listCompleted: Task[] = [];
+  tasksSubscription: Subscription;
+
+  public items: Observable<any>;
 
   constructor(
-    private todoDataService: TodoDataService,
-    public dialogRef: MatDialog
-  ) {
-    this.updateList();
+    private tasksService: TasksService,
+    public dialogRef: MatDialog  ) {
   }
 
-  ngOnInit() {}
-
-  updateList() {
-    this.updateTaskListUncompleted();
-    this.updateTaskListCompleted();
+  ngOnInit() {
+    this.tasksSubscription = this.tasksService.tasksSubject.subscribe(
+      (tasks: Task[]) => {
+        this.list = tasks;
+      }
+    );
+    this.tasksService.emitTasks();
   }
-
-  updateTaskListUncompleted() {
-    this.listUncompleted = this.todoDataService
-      .getTasks()
-      .filter(task => !task.completed)
-      // sort by descending ID
-      .sort((a, b) => {
-        return b.id - a.id;
-      });
-  }
-
-  updateTaskListCompleted() {
-    this.listCompleted = this.todoDataService
-      .getTasks()
-      .filter(task => task.completed);
+  ngOnDestroy() {
+    this.tasksSubscription.unsubscribe();
   }
 
   toggleComplete(_currentTask: any) {
-    this.todoDataService.updateTaskById(_currentTask.value, {
-      completed: _currentTask.selected
-    });
-    this.updateList();
+    let taskToUpdate;
+
+    this.tasksService
+      .getTask(_currentTask.value)
+      .then(task => (taskToUpdate = task));
+
+    taskToUpdate.completed = _currentTask.selected;
+
+    console.log(taskToUpdate);
+    this.tasksService.updateTaskById(_currentTask.value);
   }
 
   addTask(_inputElement) {
@@ -57,12 +53,11 @@ export class ListComponent implements OnInit {
       return null;
     }
 
-    let task = this.todoDataService.initNewTask();
+    let task = new Task();
     task.title = _inputElement.value;
     _inputElement.value = '';
 
-    this.todoDataService.addNewTask(task);
-    this.updateList();
+    this.tasksService.createTask(task);
   }
 
   removeTask($event: Event, _task: Task) {
@@ -80,8 +75,7 @@ export class ListComponent implements OnInit {
         return null;
       }
 
-      this.todoDataService.removeTask(_task.id);
-      this.updateList();
+      this.tasksService.removeTask(_task);
     });
   }
 }
