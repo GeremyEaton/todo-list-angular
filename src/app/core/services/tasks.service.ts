@@ -28,7 +28,7 @@ export class TasksService {
       if (result) {
         return this.initTasks();
       }
-      return (this.userId = null);
+      return (this.userId = null, this.tasks = []);
     });
   }
 
