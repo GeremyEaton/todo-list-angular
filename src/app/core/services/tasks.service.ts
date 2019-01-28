@@ -35,6 +35,7 @@ export class TasksService {
     userDoc
       .get()
       .then(querySnapshot => {
+        this.tasks = [];
         querySnapshot.forEach(doc => {
           let task = new Task(doc.data());
           task.id = doc.id;
@@ -74,7 +75,7 @@ export class TasksService {
     this.tasksCollection
       .add(Object.assign({}, task))
       .then(() => {
-        this.tasks.push(task);
+        this.getTasks();
         this.emitTasks();
       })
       .catch(error => console.error('Error creating document: ', error));
