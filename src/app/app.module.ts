@@ -10,6 +10,7 @@ import { PageNotFoundModule } from '@modules/page-not-found/page-not-found.modul
 import { TaskListModule } from '@modules/task-list/task-list.module';
 import { CoreModule } from '@core/core.module';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

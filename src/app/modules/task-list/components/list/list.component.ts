@@ -4,60 +4,48 @@ import { Task } from '@models/task';
 import { MatDialog } from '@angular/material';
 import { DialogRemoveTaskComponent } from '../dialog-remove-task/dialog-remove-task.component';
 import { TasksService } from '@core/services/tasks.service';
-import { Subscription, Observable } from 'rxjs';
+
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-task-list--list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  providers: [TasksService]
+  styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy {
   list: Task[];
-  tasksSubscription: Subscription;
-
-  public items: Observable<any>;
+  list$;
 
   constructor(
     private tasksService: TasksService,
-    public dialogRef: MatDialog  ) {
+    private dialogRef: MatDialog
+  ) {
+    this.list = tasksService.tasks;
   }
 
   ngOnInit() {
-    this.tasksSubscription = this.tasksService.tasksSubject.subscribe(
-      (tasks: Task[]) => {
-        this.list = tasks;
-      }
-    );
-    this.tasksService.emitTasks();
+    this.list$ = this.tasksService.tasksSubject.subscribe(result => {
+      this.list = result;
+    });
   }
   ngOnDestroy() {
-    this.tasksSubscription.unsubscribe();
+    this.list$.unsubscribe();
   }
 
-  toggleComplete(_currentTask: any) {
-    let taskToUpdate;
-
-    this.tasksService
-      .getTask(_currentTask.value)
-      .then(task => (taskToUpdate = task));
-
-    taskToUpdate.completed = _currentTask.selected;
-
-    console.log(taskToUpdate);
-    this.tasksService.updateTaskById(_currentTask.value);
-  }
-
-  addTask(_inputElement) {
+  addTask(_inputElement: any) {
     if (!_inputElement.value) {
       return null;
     }
 
-    let task = new Task();
-    task.title = _inputElement.value;
-    _inputElement.value = '';
+    this.tasksService.createTask(_inputElement.value);
 
-    this.tasksService.createTask(task);
+    // clean input
+    _inputElement.value = '';
   }
 
   removeTask($event: Event, _task: Task) {
@@ -74,8 +62,14 @@ export class ListComponent implements OnInit, OnDestroy {
       if (!result) {
         return null;
       }
-
-      this.tasksService.removeTask(_task);
+      return this.tasksService.removeTask(_task);
     });
+  }
+
+  toggleComplete(_task: Task, _currentItem: any) {
+    let values = {
+      completed : _currentItem.selected
+    }
+    this.tasksService.updateTask(_task, values);
   }
 }

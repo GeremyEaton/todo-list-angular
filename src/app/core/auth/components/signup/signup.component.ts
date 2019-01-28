@@ -12,11 +12,7 @@ import { MatSnackBar } from '@angular/material';
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private matSnackBar: MatSnackBar
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.initForm();
@@ -36,11 +32,6 @@ export class SignupComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
 
-    this.authService
-      .createNewUser(email, password)
-      .then(
-        () => this.router.navigate(['/task-list/list']),
-        error => this.matSnackBar.open(error, '', { duration: 5000 })
-      );
+    this.authService.createNewUser(email, password);
   }
 }

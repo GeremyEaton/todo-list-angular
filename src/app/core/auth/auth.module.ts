@@ -10,11 +10,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthRoutingModule } from './auth.routing';
 import { AuthComponent } from './auth.component';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 @NgModule({
   declarations: [SigninComponent, SignupComponent, AuthComponent],
   imports: [
     CommonModule,
+    AngularFireAuthModule,
     AuthRoutingModule,
     BrowserModule,
     MaterialModule,
@@ -22,9 +24,6 @@ import { AuthComponent } from './auth.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [
-    AuthService,
-    AuthGuardService
-  ]
+  providers: [AuthService, AuthGuardService]
 })
-export class AuthModule { }
+export class AuthModule {}

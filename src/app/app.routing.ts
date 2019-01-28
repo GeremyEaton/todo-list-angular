@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardService } from '@core/auth/services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -10,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: ('./core/auth/auth.module#AuthModule')
+    loadChildren: './core/auth/auth.module#AuthModule'
   },
   {
     path: 'task-list',
@@ -19,7 +18,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'auth'
+    redirectTo: 'task-list'
   },
   {
     path: '**',

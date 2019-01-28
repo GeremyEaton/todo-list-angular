@@ -4,9 +4,9 @@
     class="sidenav"
     fixedInViewport="true"  >
     <mat-nav-list (click)="drawer.close()">
-      <a mat-list-item routerLinkActive="active" [routerLink]="['/task-list/list']" >Liste de tâche</a>
-      <a mat-list-item routerLinkActive="active" *ngIf="!isAuth" [routerLink]="['/auth']">Log-in</a>
-      <a mat-list-item routerLinkActive="active" *ngIf="isAuth" (click)="signOutUser()">Se déconnecter</a>
+      <a mat-list-item *ngIf="isLogged" routerLinkActive="active" [routerLink]="['/task-list/list']" >Liste de tâche</a>
+      <a mat-list-item *ngIf="!isLogged" routerLinkActive="active" [routerLink]="['/auth']" >Log-in</a>
+      <a mat-list-item *ngIf="isLogged" (click)="logOut()" >Log-out</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

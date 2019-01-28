@@ -13,7 +13,7 @@ export class SigninComponent implements OnInit {
   signinForm: FormGroup;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
     private matSnackBar: MatSnackBar
   ) {}
@@ -36,11 +36,6 @@ export class SigninComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
 
-    this.authService
-      .signInUser(email, password)
-      .then(
-        () => this.router.navigate(['/task-list/list']),
-        error => this.matSnackBar.open(error, '', { duration: 5000 })
-      );
+    this.authService.signInUser(email, password);
   }
 }

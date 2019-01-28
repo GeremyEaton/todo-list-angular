@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/auth/services/auth.service';
-import * as firebase from 'firebase';
-import { Router } from '@angular/router';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-main-nav',
@@ -9,23 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-nav.component.scss']
 })
 export class MainNavComponent implements OnInit {
-  isAuth: boolean;
-
-  constructor(
-    private authService: AuthService,
-    private router: Router) {}
+  isLogged: boolean;
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (!user) {
-        return (this.isAuth = false);
+    this.authService.auth$.subscribe(result => {
+      if (result) {
+        return (this.isLogged = true);
       }
-      return (this.isAuth = true);
+
+      return (this.isLogged = false);
     });
   }
 
-  signOutUser() {
+  logOut() {
     this.authService.signOutUser();
-    this.router.navigate(['/auth']);
   }
 }

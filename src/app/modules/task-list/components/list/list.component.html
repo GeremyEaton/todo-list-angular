@@ -9,10 +9,9 @@
 <mat-selection-list>
   <mat-list-option
     #item
-    *ngFor="let task of list; let i = index"
-    [value]="i"
+    *ngFor="let task of list"
     [selected]="task.completed"
-    (click)="toggleComplete(item)"
+    (click)="toggleComplete(task,item)"
     [ngClass]="{ completed: task.completed }"
   >
     <div class="todo_list--task_container">

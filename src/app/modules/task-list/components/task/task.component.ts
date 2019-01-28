@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Task } from '@models/task';
-import { TodoDataService } from '../../service/todo-data.service';
-import { TaskFormService } from '../../service/task-form.service';
+import { TaskFormService } from './task-form.service';
+import { TasksService } from '@core/services/tasks.service';
 
 @Component({
   selector: 'app-task-list--task',
@@ -11,7 +11,7 @@ import { TaskFormService } from '../../service/task-form.service';
   styleUrls: ['./task.component.scss'],
   providers: [TaskFormService]
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, OnDestroy {
   stringForm: object = {
     title: {
       placeholder: `Que voulez-vous accomplir aujourd'hui ?`
@@ -22,39 +22,32 @@ export class TaskComponent implements OnInit {
   };
 
   task: Task;
-  taskId: number;
-  private sub: any;
+  taskId: Task['id'];
+  private sub$: any;
 
   constructor(
+    public taskFormService: TaskFormService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private todoDataService: TodoDataService,
-    private taskFormService: TaskFormService
-  ) {
-    this.initTask();
-  }
+    private tasksService: TasksService
+  ) {}
 
   ngOnInit() {
-    this.taskFormService.initFormTask(this.task);
-  }
-
-  initTask() {
-    this.sub = this.activatedRoute.params.subscribe(params => {
-      this.taskId = +params['taskId'];
+    this.sub$ = this.activatedRoute.params.subscribe(params => {
+      this.taskId = params['taskId'];
     });
 
-    if (!this.taskId && this.taskId !== 0) {
+    if (!this.taskId) {
       return this.router.navigate(['/task-list', '/list']);
     }
 
-    let task = this.todoDataService.getTaskById(this.taskId);
-    if (!task) {
-      task = this.todoDataService.initNewTask();
-    }
-    this.setTask(task);
+    let task = this.task = this.tasksService.getTask(this.taskId);
+
+    this.taskFormService.initFormTask(task);
   }
 
-  setTask(_task: Task) {
-    return (this.task = _task);
+  ngOnDestroy() {
+    this.sub$.unsubscribe();
   }
+
 }
