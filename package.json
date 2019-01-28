@@ -4,10 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build ",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-github" : "ng build --prod --output-path project --base-href \"https://geremyeaton.github.io/todo-list-angular/\";  ngh --dir=project/"
   },
   "private": true,
   "dependencies": {
