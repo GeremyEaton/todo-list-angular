@@ -3,11 +3,9 @@ export class Task {
   title: string = '';
   description: string = '';
   completed: boolean = false;
+  uid: string;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
-
-
-
   }
 }
