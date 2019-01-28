@@ -4,7 +4,14 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000'
+  firebase: {
+    apiKey: 'AIzaSyDmoYKSDgZ2yIcTVMtMwCY-4PIudLKTZkY',
+    authDomain: 'todolist-e54fd.firebaseapp.com',
+    databaseURL: 'https://todolist-e54fd.firebaseio.com',
+    projectId: 'todolist-e54fd',
+    storageBucket: 'todolist-e54fd.appspot.com',
+    messagingSenderId: '416759525456'
+  }
 };
 
 /*

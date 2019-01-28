@@ -3,17 +3,22 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: '404'
+    path: '404',
+    loadChildren:
+      './modules/page-not-found/page-not-found.module#PageNotFoundModule'
+  },
+  {
+    path: 'auth',
+    loadChildren: './core/auth/auth.module#AuthModule'
   },
   {
     path: 'task-list',
     loadChildren: './modules/task-list/task-list.module#TaskListModule'
   },
   {
-    path: '404',
-    loadChildren: './modules/page-not-found/page-not-found.module#PageNotFoundModule'
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'task-list'
   },
   {
     path: '**',

@@ -3,8 +3,10 @@
     #drawer
     class="sidenav"
     fixedInViewport="true"  >
-    <mat-nav-list>
-      <a mat-list-item [routerLink]="['/task-list/list']" (click)="drawer.close()">Liste de tâche</a>
+    <mat-nav-list (click)="drawer.close()">
+      <a mat-list-item *ngIf="isLogged" routerLinkActive="active" [routerLink]="['/task-list/list']" >Liste de tâche</a>
+      <a mat-list-item *ngIf="!isLogged" routerLinkActive="active" [routerLink]="['/auth']" >Log-in</a>
+      <a mat-list-item *ngIf="isLogged" (click)="logOut()" >Log-out</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

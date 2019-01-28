@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Task } from '@models/task';
 
-import { TodoDataService } from '../service/todo-data.service';
-
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { TasksService } from '@core/services/tasks.service';
 
 @Injectable()
 export class TaskFormService {
@@ -13,7 +12,7 @@ export class TaskFormService {
   form: FormGroup;
 
   constructor(
-    private todoDataService: TodoDataService,
+    private tasksService: TasksService,
     public snackBar: MatSnackBar,
     private router: Router
   ) {}
@@ -27,7 +26,7 @@ export class TaskFormService {
       });
     }
 
-    this.todoDataService.updateTaskById(this.task.id, this.form.value);
+    this.tasksService.updateTaskById(this.task.id, this.form.value);
     let snackBarRef = this.snackBar.open(
       'Votre tâche a bien été enregistré',
       'Retour à la liste',
@@ -48,14 +47,11 @@ export class TaskFormService {
       return null;
     }
 
-    this.setTask(_task);
+    this.task = _task;
     this.form = new FormGroup({
       title: new FormControl(_task.title || '', [Validators.required]),
       description: new FormControl(_task.description || '')
     });
   }
 
-  setTask(_task: Task) {
-    return (this.task = _task);
-  }
 }

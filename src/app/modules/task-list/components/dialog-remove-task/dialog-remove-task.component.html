@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>Suppression de la tâche</h1>
 <mat-dialog-content>
  <p> Vous êtes sur le point de supprimer la tâche suivante :</p>
-
   <h2 mat-dialog-title>{{ data.title }}</h2>
   <p>{{ data.description }}</p>
-  <button mat-button [mat-dialog-close]="false" color="primary">Garder la tâche</button>
   <button mat-button [mat-dialog-close]="true" color="warn">
     Je confirme la suppresion
   </button>
+  <button mat-button [mat-dialog-close]="false" color="primary">Garder la tâche</button>
+ 
 </mat-dialog-content>

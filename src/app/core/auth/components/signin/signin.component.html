@@ -1,0 +1,31 @@
+
+<h2> Connectez-vous !</h2>
+<form [formGroup]="signinForm" (ngSubmit)="onSubmit(form)" #form="ngForm">
+  <mat-form-field>
+    <mat-label>Adresse email</mat-label>
+    <input
+      autocomplete="off"
+      matInput
+      placeholder="nom.prenom@domain.com"
+      formControlName="email"
+      type="email"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Mot de passe</mat-label>
+    <input
+      autocomplete="off"
+      matInput
+      placeholder="6 caractère minimum : chiffre, lettre (majuscule minuscule), caractère spéciaux"
+      formControlName="password"
+      type="password"
+      required
+    />
+  </mat-form-field>
+  <button 
+  mat-raised-button 
+  color="primary" 
+  type="submit"
+  [disabled]="!signinForm.valid">Se connecter</button>
+</form>

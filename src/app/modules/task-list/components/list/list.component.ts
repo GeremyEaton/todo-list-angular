@@ -1,68 +1,51 @@
-import { Component, OnInit, Inject, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Task } from '@models/task';
-import { TodoDataService } from '../../service/todo-data.service';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { DialogRemoveTaskComponent } from '../dialog-remove-task/dialog-remove-task.component';
+import { TasksService } from '@core/services/tasks.service';
+
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-task-list--list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   list: Task[];
-  listUncompleted: Task[] = [];
-  listCompleted: Task[] = [];
+  list$;
 
   constructor(
-    private todoDataService: TodoDataService,
-    public dialogRef: MatDialog
+    private tasksService: TasksService,
+    private dialogRef: MatDialog
   ) {
-    this.updateList();
+    this.list = tasksService.tasks;
   }
 
-  ngOnInit() {}
-
-  updateList() {
-    this.updateTaskListUncompleted();
-    this.updateTaskListCompleted();
-  }
-
-  updateTaskListUncompleted() {
-    this.listUncompleted = this.todoDataService
-      .getTasks()
-      .filter(task => !task.completed)
-      // sort by descending ID
-      .sort((a, b) => {
-        return b.id - a.id;
-      });
-  }
-
-  updateTaskListCompleted() {
-    this.listCompleted = this.todoDataService
-      .getTasks()
-      .filter(task => task.completed);
-  }
-
-  toggleComplete(_currentTask: any) {
-    this.todoDataService.updateTaskById(_currentTask.value, {
-      completed: _currentTask.selected
+  ngOnInit() {
+    this.list$ = this.tasksService.tasksSubject.subscribe(result => {
+      this.list = result;
     });
-    this.updateList();
+  }
+  ngOnDestroy() {
+    this.list$.unsubscribe();
   }
 
-  addTask(_inputElement) {
+  addTask(_inputElement: any) {
     if (!_inputElement.value) {
       return null;
     }
 
-    let task = this.todoDataService.initNewTask();
-    task.title = _inputElement.value;
-    _inputElement.value = '';
+    this.tasksService.createTask(_inputElement.value);
 
-    this.todoDataService.addNewTask(task);
-    this.updateList();
+    // clean input
+    _inputElement.value = '';
   }
 
   removeTask($event: Event, _task: Task) {
@@ -79,9 +62,14 @@ export class ListComponent implements OnInit {
       if (!result) {
         return null;
       }
-
-      this.todoDataService.removeTask(_task.id);
-      this.updateList();
+      return this.tasksService.removeTask(_task);
     });
+  }
+
+  toggleComplete(_task: Task, _currentItem: any) {
+    let values = {
+      completed : _currentItem.selected
+    }
+    this.tasksService.updateTask(_task, values);
   }
 }
