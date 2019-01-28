@@ -13,7 +13,7 @@
     <mat-toolbar color="primary" (click)="drawer.toggle()" style="cursor:pointer;">
       <mat-icon aria-label="Side nav toggle icon" *ngIf="!drawer.opened">menu</mat-icon>
       <mat-icon aria-label="Side nav toggle icon" *ngIf="drawer.opened">close</mat-icon>
-      <h1 class="main_nav--title">Todo List  #Angular7</h1>
+      <h1 class="main_nav--title">Todo List  #Angular7 - {{ userMail }}</h1>
     </mat-toolbar>
     <main class="main--container_content"><ng-content></ng-content></main>
   </mat-sidenav-content>

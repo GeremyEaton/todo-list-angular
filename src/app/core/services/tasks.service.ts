@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Task } from '@shared/models/task';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Subscribable } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreCollection
 } from 'angularfire2/firestore';
+import { AuthService } from '@core/auth/services/auth.service';
+import { Observer } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +18,24 @@ export class TasksService {
   tasksSubject = new Subject<Task[]>();
   tasksCollection: AngularFirestoreCollection<Task>;
 
-  dataBaseName = 'tasks';
+  dataBaseName: string = 'tasks';
 
-  constructor(private afs: AngularFirestore) {
-    this.tasksCollection = afs.collection<Task>(this.dataBaseName);
+  userId: string = '';
+
+  constructor(private afs: AngularFirestore, private authService: AuthService) {
+    this.initTasks();
+    authService.auth$.subscribe(result => {
+      if (result) {
+        return this.initTasks();
+      }
+      return (this.userId = null);
+    });
+  }
+
+  initTasks() {
+    this.userId = this.authService.getUserId();
+    this.tasksCollection = this.afs.collection<Task>(this.dataBaseName);
     this.tasks$ = this.tasksCollection.valueChanges();
-
     this.getTasks();
   }
 
@@ -30,7 +44,9 @@ export class TasksService {
   }
 
   getTasks() {
-    let userDoc = this.afs.firestore.collection(`tasks`);
+    let userDoc = this.afs.firestore
+      .collection(this.dataBaseName)
+      .where('uid', '==', this.userId);
 
     userDoc
       .get()
@@ -71,6 +87,7 @@ export class TasksService {
 
   createTask(_titleValue: string) {
     let task = new Task();
+    task.uid = this.userId;
     task.title = _titleValue;
     this.tasksCollection
       .add(Object.assign({}, task))

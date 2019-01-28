@@ -68,10 +68,18 @@ export class AuthService {
 
   signOutUser() {
     this.fireAuth.auth.signOut();
+    this.user = null;
     this.router.navigate(['auth']);
   }
 
   getUser() {
     return this.user;
+  }
+
+  getUserId() {
+    return this.user.uid;
+  }
+  getUserMail() {
+    return this.user.email;
   }
 }

@@ -9,15 +9,16 @@ import * as firebase from 'firebase/app';
 })
 export class MainNavComponent implements OnInit {
   isLogged: boolean;
+  userMail: string;
   constructor(public authService: AuthService) {}
 
   ngOnInit() {
     this.authService.auth$.subscribe(result => {
       if (result) {
-        return (this.isLogged = true);
+        return (this.isLogged = true, this.userMail = this.authService.getUserMail());
       }
 
-      return (this.isLogged = false);
+      return (this.isLogged = false, this.userMail = '');
     });
   }
 
